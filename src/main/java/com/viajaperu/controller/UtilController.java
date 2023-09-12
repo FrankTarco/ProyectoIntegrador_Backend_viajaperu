@@ -7,7 +7,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.viajaperu.repository.CombustibleRepository;
+import com.viajaperu.repository.LicenciaRepository;
 import com.viajaperu.repository.ServicioRepository;
+import com.viajaperu.repository.TipoDocumentoRepository;
 
 @RestController()
 @RequestMapping("/rest/util")
@@ -18,6 +20,27 @@ public class UtilController {
 	
 	@Autowired
 	private ServicioRepository repoServicio;
+	
+	
+	@Autowired
+	private LicenciaRepository repoLicencia;
+	
+	@Autowired
+	private TipoDocumentoRepository repotipoDoc;
+	
+	
+	
+	@GetMapping("/lista/licencia")
+	public ResponseEntity<?>listaLicencia(){
+		return ResponseEntity.ok(repoLicencia.findAll());
+		
+	}
+	@GetMapping("/lista/tipodoc")
+	public ResponseEntity<?>listaTipoDocumento(){
+		return ResponseEntity.ok(repotipoDoc.findAll());
+		
+	}
+	
 	
 	@GetMapping("/lista/combustible")
 	public ResponseEntity<?>listaCombustible(){
