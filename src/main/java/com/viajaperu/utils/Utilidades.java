@@ -40,7 +40,7 @@ public String generarIdTrasaccion(String id,String entidad) {
 	
 	String cod = "";
 	if(id == null) {
-		String letra = entidad.substring(0,2);
+		String letra = entidad.substring(0,2).toUpperCase();
 		cod = letra+"0000001";
 	}
 	else {
