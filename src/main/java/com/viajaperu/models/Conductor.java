@@ -1,5 +1,6 @@
 package com.viajaperu.models;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
@@ -19,6 +20,7 @@ public class Conductor {
 	@Id
     private String cod_conductor;
     private int cod_tipodocumento;
+    @Column(name="nro_documento")
     private String nrodocumento;
     private String ape_chofer;
     private String nom_chofer;
