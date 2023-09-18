@@ -13,6 +13,7 @@ public interface ConductorService {
 	public String ultimoIdString();
 	public Optional<Conductor> buscarPorId(String codigo);
 	public List<Conductor>listarConductorXLicencia(String licencia);
+	public List<Conductor>listarConductorXDocumento(String documento);
 	public List<Conductor>listarConductorXLicenciaDiferenteCodigo(String licencia, String codigo);
 	
 	

@@ -58,4 +58,10 @@ public class ConductorServiceImp implements ConductorService{
 		return repoconductor.buscarPorLicenciaDiferenteCodigo(licencia, codigo);
 	}
 
+	@Override
+	public List<Conductor> listarConductorXDocumento(String documento) {
+		// TODO Auto-generated method stub
+		return repoconductor.findByNrodocumento(documento);
+	}
+
 }

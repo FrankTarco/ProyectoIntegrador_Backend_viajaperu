@@ -19,7 +19,7 @@ public class Conductor {
 	@Id
     private String cod_conductor;
     private int cod_tipodocumento;
-    private String nro_documento;
+    private String nrodocumento;
     private String ape_chofer;
     private String nom_chofer;
     private int cod_licencia;
