@@ -64,4 +64,10 @@ public class ConductorServiceImp implements ConductorService{
 		return repoconductor.findByNrodocumento(documento);
 	}
 
+	@Override
+	public List<Conductor> listarConductorXDocumentoDiferenteCodigo(String documento, String codigo) {
+		// TODO Auto-generated method stub
+		return repoconductor.buscarPorDocumentoDiferenteCodigo(documento, codigo);
+	}
+
 }

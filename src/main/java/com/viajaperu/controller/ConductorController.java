@@ -103,16 +103,27 @@ public class ConductorController {
 				List<Conductor> conductorlicencia = serviceconductor.listarConductorXLicenciaDiferenteCodigo(
 						objConductor.getNrolicencia(), objConductor.getCod_conductor());
 				if (CollectionUtils.isEmpty(conductorlicencia)) {
-					// PROCEDE A ACTUALIZAR
-					Conductor conductorActualizado = serviceconductor.registrarActualizarConductor(objConductor);
-					if (conductorActualizado == null) {
-						salida.put("mensaje", "Error!!!...No se actualizo el conductor");
-					}
+					
+					List<Conductor> conductordocumento = serviceconductor.listarConductorXDocumentoDiferenteCodigo(objConductor.getNrodocumento(), objConductor.getCod_conductor());
+					if (CollectionUtils.isEmpty(conductordocumento)) {
+						
+						Conductor conductorActualizado = serviceconductor.registrarActualizarConductor(objConductor);
+						if (conductorActualizado == null) {
+							salida.put("mensaje", "Error!!!...No se actualizo el conductor");
+						}
 
-					else {
-						salida.put("mensaje",
-								"Conductor -> " + objConductor.getCod_conductor() + " Actulizado correctamente");
+						else {
+							salida.put("mensaje",
+									"Conductor -> " + objConductor.getCod_conductor() + " Actulizado correctamente");
+						}
+						
+					}else {
+						
+						salida.put("mensaje", "El documento: " + objConductor.getNrodocumento() + " ya existe en el sistema");
 					}
+					
+					
+				
 
 				} else {
 

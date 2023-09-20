@@ -19,4 +19,7 @@ public interface ConductorRepository extends JpaRepository<Conductor, String> {
 	@Query("select b from Conductor b where b.nrolicencia=?1 and b.cod_conductor<>?2")
 	List<Conductor> buscarPorLicenciaDiferenteCodigo(String licencia, String codigo);
 	
+	@Query("select b from Conductor b where b.nrodocumento=?1 and b.cod_conductor<>?2")
+	List<Conductor> buscarPorDocumentoDiferenteCodigo(String nrodocumento, String codigo);
+	
 }
