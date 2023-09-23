@@ -18,8 +18,7 @@ public class Cliente {
 
 	@Id
 	private String cod_cliente;				
-	private String nombres;					
-	private String apellidos;				
+	private String nombre;								
 	private int cod_tipodocumento;
 	@Column(name="numero_documento")
 	private String numeroDocumento; 		
