@@ -4,6 +4,7 @@ import java.util.HashMap;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -13,10 +14,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.viajaperu.models.Cliente;
 import com.viajaperu.service.ClienteService;
+import com.viajaperu.utils.AppSettings;
 import com.viajaperu.utils.Utilidades;
 
 @RestController()
 @RequestMapping("/rest/cliente")
+@CrossOrigin(origins = AppSettings.URL_CROSS_ORIGIN)
 public class ClienteController {
 
 	@Autowired

@@ -7,6 +7,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.CollectionUtils;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,24 +19,21 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.viajaperu.models.Conductor;
 import com.viajaperu.service.ConductorService;
+import com.viajaperu.utils.AppSettings;
 import com.viajaperu.utils.Utilidades;
 
 @RestController()
 @RequestMapping("/rest/conductor")
+@CrossOrigin(origins = AppSettings.URL_CROSS_ORIGIN)
 public class ConductorController {
 
 	@Autowired
 	private ConductorService serviceconductor;
 
-	@GetMapping("/listado")
+	@GetMapping()
 	public ResponseEntity<?> listarConductor() {
 		return ResponseEntity.ok(serviceconductor.listarConductor());
 
-	}
-
-	@GetMapping("/ultimoid")
-	public ResponseEntity<?> ultimoId() {
-		return ResponseEntity.ok(serviceconductor.ultimoIdString());
 	}
 
 	@GetMapping("/porcodigo/{codigo}")
@@ -45,7 +43,7 @@ public class ConductorController {
 		return ResponseEntity.ok(b);
 	}
 
-	@PostMapping("/registar")
+	@PostMapping()
 	public ResponseEntity<?> registrar(@RequestBody Conductor objConductor) {
 
 		HashMap<String, String> salida = new HashMap<>();
@@ -91,7 +89,7 @@ public class ConductorController {
 		return ResponseEntity.ok(salida);
 	}
 
-	@PutMapping("/actualizar")
+	@PutMapping()
 	public ResponseEntity<?> actualizarCondutor(@RequestBody Conductor objConductor) {
 
 		HashMap<String, String> salida = new HashMap<>();
@@ -142,7 +140,7 @@ public class ConductorController {
 
 	}
 
-	@DeleteMapping("/eliminar/{codigo}")
+	@DeleteMapping("/{codigo}")
 	public ResponseEntity<?> eliminarBus(@PathVariable("codigo") String codigo) {
 
 		HashMap<String, String> salida = new HashMap<>();

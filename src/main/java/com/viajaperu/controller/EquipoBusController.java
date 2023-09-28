@@ -7,6 +7,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.CollectionUtils;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,28 +17,25 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.viajaperu.models.Bus;
 import com.viajaperu.models.EquipoBus;
 import com.viajaperu.service.EquipoBusService;
+import com.viajaperu.utils.AppSettings;
 import com.viajaperu.utils.Utilidades;
 
 @RestController()
 @RequestMapping("/rest/equipobus")
+@CrossOrigin(origins = AppSettings.URL_CROSS_ORIGIN)
 public class EquipoBusController {
 
 	@Autowired
 	private EquipoBusService serviceEquipoBus;
 
-	@GetMapping("/listado")
+	@GetMapping()
 	public ResponseEntity<?> listarEquipoBus() {
 		return ResponseEntity.ok(serviceEquipoBus.listaEquipoBus());
 
 	}
 
-	@GetMapping("/ultimoid")
-	public ResponseEntity<?> ultimoId() {
-		return ResponseEntity.ok(serviceEquipoBus.ultimoIdEquipo());
-	}
 
 	@GetMapping("/porcodigo/{codigo}")
 	public ResponseEntity<?> busPorCodigo(@PathVariable("codigo") String codigo) {
@@ -46,7 +44,7 @@ public class EquipoBusController {
 		return ResponseEntity.ok(b);
 	}
 
-	@PostMapping("/registrar")
+	@PostMapping()
 	public ResponseEntity<?> registrarEquipoBus(@RequestBody EquipoBus objEquipoBus) {
 
 		HashMap<String, String> salida = new HashMap<>();
@@ -112,7 +110,7 @@ public class EquipoBusController {
 		return ResponseEntity.ok(salida);
 	}
 
-	@DeleteMapping("/eliminar/{codigo}")
+	@DeleteMapping("/{codigo}")
 	public ResponseEntity<?> eliminarEquipo(@PathVariable("codigo") String codigo) {
 
 		HashMap<String, String> salida = new HashMap<>();
@@ -131,7 +129,7 @@ public class EquipoBusController {
 
 	}
 
-	@PutMapping("/actualizar")
+	@PutMapping()
 	public ResponseEntity<?> actualizarEquipo(@RequestBody EquipoBus objEquipoBus) {
 
 		HashMap<String, String> salida = new HashMap<>();

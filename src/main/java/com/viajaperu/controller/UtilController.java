@@ -2,6 +2,7 @@ package com.viajaperu.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -10,9 +11,11 @@ import com.viajaperu.repository.CombustibleRepository;
 import com.viajaperu.repository.LicenciaRepository;
 import com.viajaperu.repository.ServicioRepository;
 import com.viajaperu.repository.TipoDocumentoRepository;
+import com.viajaperu.utils.AppSettings;
 
 @RestController()
 @RequestMapping("/rest/util")
+@CrossOrigin(origins = AppSettings.URL_CROSS_ORIGIN)
 public class UtilController {
 
 	@Autowired

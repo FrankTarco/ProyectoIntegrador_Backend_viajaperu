@@ -7,6 +7,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.CollectionUtils;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,11 +20,13 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.viajaperu.models.Terramoza;
 import com.viajaperu.service.TerramozaService;
+import com.viajaperu.utils.AppSettings;
 import com.viajaperu.utils.Utilidades;
 
 
 @RestController
-@RequestMapping("/url/terramoza")
+@RequestMapping("/rest/terramoza")
+@CrossOrigin(origins = AppSettings.URL_CROSS_ORIGIN)
 public class TerramozaController {
 	@Autowired
 	private TerramozaService terramozaService;
@@ -34,6 +37,13 @@ public class TerramozaController {
 		List<Terramoza> lista = terramozaService.listaTerramoza();
 		return ResponseEntity.ok(lista);
 	}
+	
+	
+	@GetMapping("/porcodigo/{codigo}")
+	public ResponseEntity<?>terramozaPorCodigo(@PathVariable("codigo")String codigo){	
+		return ResponseEntity.ok(terramozaService.buscaTerramoza(codigo));
+	}
+	
 	
 	@PostMapping
 	@ResponseBody

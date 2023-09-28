@@ -7,6 +7,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.CollectionUtils;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,22 +19,29 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.viajaperu.models.Destino;
 import com.viajaperu.service.DestinoService;
+import com.viajaperu.utils.AppSettings;
 import com.viajaperu.utils.Utilidades;
 
 @RestController()
 @RequestMapping("/rest/destino")
+@CrossOrigin(origins = AppSettings.URL_CROSS_ORIGIN)
 public class DestinoController {
 
 	@Autowired
 	private DestinoService service;
 	
-	@GetMapping("/listado")
+	@GetMapping()
 	public ResponseEntity<?>listado(){
 		
 		return ResponseEntity.ok(service.listarTodo());
 	}
 	
-	@PostMapping("/registra")
+	@GetMapping("/{codigo}")
+	public ResponseEntity<?>buscarPorCodigo(@PathVariable("codigo")String codigo){
+		return ResponseEntity.ok(service.buscarDestinoPorCodigo(codigo));
+	}
+	
+	@PostMapping()
 	public ResponseEntity<?>registrar(@RequestBody Destino objDestino){
 		
 		HashMap<String, String> salida = new HashMap<>();
@@ -67,7 +75,7 @@ public class DestinoController {
 		
 	}
 	
-	@PutMapping("/actualizar")
+	@PutMapping()
 	public ResponseEntity<?>actualizar(@RequestBody Destino objDestino){
 		
 		HashMap<String, String> salida = new HashMap<>();
@@ -104,7 +112,7 @@ public class DestinoController {
 	}
 	
 	
-	@DeleteMapping("/eliminar/{codigo}")
+	@DeleteMapping("/{codigo}")
 	public ResponseEntity<?>Eliminar(@PathVariable("codigo")String codigo){
 		
 		HashMap<String, String> salida = new HashMap<>();

@@ -6,6 +6,7 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,13 +16,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.viajaperu.models.EquipoBus;
 import com.viajaperu.models.Itinerario;
 import com.viajaperu.service.ItinerarioService;
+import com.viajaperu.utils.AppSettings;
 import com.viajaperu.utils.Utilidades;
 
 @RestController
-@RequestMapping("/url/itinerario")
+@RequestMapping("/rest/itinerario")
+@CrossOrigin(origins = AppSettings.URL_CROSS_ORIGIN)
 public class ItinerarioController {
 	@Autowired
 	private ItinerarioService itinerarioService;
@@ -33,11 +35,6 @@ public class ItinerarioController {
 		return ResponseEntity.ok(lista);
 	}
 	
-	@GetMapping
-	@ResponseBody
-	public ResponseEntity<?> ultimoId() {
-		return ResponseEntity.ok(itinerarioService.ultimoIdItinerario());
-	}
 	
 	@GetMapping("/{codigo}")
 	public ResponseEntity<?> itinerarioPorCodigo(@PathVariable("codigo") String codigo) {
@@ -53,7 +50,15 @@ public class ItinerarioController {
 		String cod = util.generarId(itinerarioService.ultimoIdItinerario(), "IT");//sino una letra mas
 		
 		try {
+			objItinerario.setCod_itinerario(cod);
+			Itinerario nuevo_itinerario = itinerarioService.registraActualizaItinerario(objItinerario);
 			
+			if(nuevo_itinerario == null) {
+				salida.put("mensaje", "No se registro el itinerario");
+				
+			}else {
+				salida.put("mensaje", "Se registro el itinerario " + nuevo_itinerario.getCod_itinerario());
+			}
 					
 			
 		} catch (Exception e) {

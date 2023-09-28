@@ -7,6 +7,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.CollectionUtils;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,27 +19,23 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.viajaperu.models.Bus;
 import com.viajaperu.service.BusService;
+import com.viajaperu.utils.AppSettings;
 import com.viajaperu.utils.Utilidades;
 
 
 @RestController()
 @RequestMapping("/rest/bus")
+@CrossOrigin(origins = AppSettings.URL_CROSS_ORIGIN)
 public class BusController {
 
 	@Autowired
 	private BusService service;
 	
-	@GetMapping("/listado")
-	public ResponseEntity<?>listarBuses(){
-		
+	@GetMapping()
+	public ResponseEntity<?>listarBuses(){	
 		return ResponseEntity.ok(service.listarBuses());
-		
 	}
 	
-	@GetMapping("/ultimoid")
-	public ResponseEntity<?>ultimoId(){
-		return ResponseEntity.ok(service.ultimoIdString());
-	}
 	
 	@GetMapping("/porcodigo/{codigo}")
 	public ResponseEntity<?>busPorCodigo(@PathVariable("codigo")String codigo){
@@ -48,15 +45,11 @@ public class BusController {
 	}
 	
 	
-	@PostMapping("/registar")
-	public ResponseEntity<?>registrar(@RequestBody Bus objBus){
-		
-		HashMap<String, String> salida = new HashMap<>();
-		
-		Utilidades util = new Utilidades();
-		
-		String cod = util.generarId(service.ultimoIdString(),"Bus");
-		
+	@PostMapping()
+	public ResponseEntity<?>registrar(@RequestBody Bus objBus){		
+		HashMap<String, String> salida = new HashMap<>();	
+		Utilidades util = new Utilidades();	
+		String cod = util.generarId(service.ultimoIdString(),"Bus");	
 		try {
 			
 			//VALIDACION DE PLACA REPETIDA
@@ -88,11 +81,9 @@ public class BusController {
 		return ResponseEntity.ok(salida);
 	}
 	
-	@PutMapping("/actualizar")
-	public ResponseEntity<?>actualizarBus(@RequestBody Bus objBus){
-		
-		HashMap<String, String> salida = new HashMap<>();
-		
+	@PutMapping()
+	public ResponseEntity<?>actualizarBus(@RequestBody Bus objBus){	
+		HashMap<String, String> salida = new HashMap<>();	
 		try {		
 			Optional<Bus> verificar = service.buscarPorId(objBus.getCod_bus());		
 			if(verificar.isPresent()) {				
@@ -103,8 +94,7 @@ public class BusController {
 					Bus busActualizado = service.registrarActualizarBus(objBus);			
 					if(busActualizado == null) {
 						salida.put("mensaje", "No se actualizo el bus por un error");
-					}
-					
+					}				
 					else {
 						salida.put("mensaje", "Bus "+ objBus.getCod_bus()+ " correctamente");
 					}
@@ -121,14 +111,12 @@ public class BusController {
 			
 		} catch (Exception e) {
 			salida.put("mensaje", "Ocurrio un error " + e.getMessage());
-		}
-			
-		return ResponseEntity.ok(salida);
-		
+		}		
+		return ResponseEntity.ok(salida);	
 	}
 	
 	
-	@DeleteMapping("/eliminar/{codigo}")
+	@DeleteMapping("/{codigo}")
 	public ResponseEntity<?>eliminarBus(@PathVariable("codigo")String codigo){
 		
 		HashMap<String, String> salida = new HashMap<>();
