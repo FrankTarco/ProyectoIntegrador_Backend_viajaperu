@@ -1,5 +1,6 @@
 package com.viajaperu.models;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
@@ -20,7 +21,8 @@ public class Bus {
 	private String marca;
 	private int total_asientos;
 	private int total_pasajeros;
-	private String año_fabricacion;
+	@Column(name="año_fabricacion")
+	private int fabricacion;
 	private int cantidad_ruedas;
 	private int cod_combustible;
 	private int cod_servicio;
