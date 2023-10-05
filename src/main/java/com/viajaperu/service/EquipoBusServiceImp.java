@@ -6,8 +6,12 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.viajaperu.models.Conductor;
 import com.viajaperu.models.EquipoBus;
+import com.viajaperu.models.Terramoza;
+import com.viajaperu.repository.ConductorRepository;
 import com.viajaperu.repository.EquipoBusRepository;
+import com.viajaperu.repository.TerramozaRepository;
 
 @Service
 public class EquipoBusServiceImp implements EquipoBusService {
@@ -15,7 +19,11 @@ public class EquipoBusServiceImp implements EquipoBusService {
 	@Autowired
 	private EquipoBusRepository repoEquipo;
 	
+	@Autowired
+	private ConductorRepository conductorRepo;
 	
+	@Autowired
+	private TerramozaRepository terraRepo;
 	
 	@Override
 	public List<EquipoBus> listaEquipoBus() {
@@ -61,5 +69,25 @@ public class EquipoBusServiceImp implements EquipoBusService {
 		// TODO Auto-generated method stub
 		return repoEquipo.buscarconductordentrodeEquipo(chofer, copiloto);
 	}
+
+	@Override
+	public List<Conductor> conductoresDisponibles() {
+		
+		return conductorRepo.disponiblesSeleccion();
+	}
+
+	@Override
+	public List<Conductor> copilotosDisponibles(String cod_conductor) {
+		
+		return conductorRepo.buscarCopilotoParaEquipoBus(cod_conductor);
+	}
+
+	@Override
+	public List<Terramoza> terramozasDisponibles() {
+		
+		return terraRepo.terramozaDisponibleParaEquipo();
+	}
+	
+
 
 }

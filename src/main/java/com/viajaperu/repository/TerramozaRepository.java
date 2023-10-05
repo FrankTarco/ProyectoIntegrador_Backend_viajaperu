@@ -17,4 +17,7 @@ public interface TerramozaRepository extends JpaRepository<Terramoza, String>{
 	
 	@Query("SELECT t from Terramoza t where t.numerodocumento=?1 and t.cod_terramoza<>?2")
 	public List<Terramoza>buscarTerramoza(String numero_documento,String cod_terramoza);
+	
+	@Query("SELECT t FROM Terramoza t WHERE NOT EXISTS (SELECT 1 FROM EquipoBus e WHERE e.codterramoza = t.cod_terramoza)")
+	public List<Terramoza>terramozaDisponibleParaEquipo();
 }

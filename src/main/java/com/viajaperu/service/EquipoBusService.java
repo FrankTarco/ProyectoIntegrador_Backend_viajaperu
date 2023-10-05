@@ -3,7 +3,9 @@ package com.viajaperu.service;
 import java.util.List;
 import java.util.Optional;
 
+import com.viajaperu.models.Conductor;
 import com.viajaperu.models.EquipoBus;
+import com.viajaperu.models.Terramoza;
 
 public interface EquipoBusService {
 	
@@ -15,4 +17,10 @@ public interface EquipoBusService {
 
 	public List<EquipoBus> listarEquipoTerramoza(String codTerramoza);
 	public List<EquipoBus> buscarconductorrepetido(String chofer,String copiloto);
+	
+	public List<Conductor>conductoresDisponibles();
+	
+	public List<Conductor>copilotosDisponibles(String cod_conductor);
+	
+	public List<Terramoza>terramozasDisponibles();
 }

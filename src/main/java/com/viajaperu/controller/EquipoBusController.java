@@ -35,6 +35,22 @@ public class EquipoBusController {
 		return ResponseEntity.ok(serviceEquipoBus.listaEquipoBus());
 
 	}
+	
+	@GetMapping("/conductores")
+	public ResponseEntity<?>conductoresDisponibles(){
+		return ResponseEntity.ok(serviceEquipoBus.conductoresDisponibles());
+	}
+	
+	@GetMapping("/copilotos/{codigo}")
+	public ResponseEntity<?>copilotosDisponibles(@PathVariable("codigo")String codigo){
+		return ResponseEntity.ok(serviceEquipoBus.copilotosDisponibles(codigo));
+	}
+	
+	@GetMapping("/terramozas")
+	public ResponseEntity<?>terramozasDisponibles(){
+		return ResponseEntity.ok(serviceEquipoBus.terramozasDisponibles());
+	}
+	
 
 
 	@GetMapping("/porcodigo/{codigo}")
