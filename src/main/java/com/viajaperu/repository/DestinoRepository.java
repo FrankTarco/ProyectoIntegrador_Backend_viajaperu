@@ -18,4 +18,8 @@ public interface DestinoRepository extends JpaRepository<Destino, String>{
 	public String ultimoId();
 	
 	public List<Destino>findByNombreAndSucursal(String nombre,String sucursal);
+	
+	@Query("select d from Destino d where d.nombre<> ?1")
+	public List<Destino>destinoDiferenteDeOtro(String nombreDestino);
+	
 }

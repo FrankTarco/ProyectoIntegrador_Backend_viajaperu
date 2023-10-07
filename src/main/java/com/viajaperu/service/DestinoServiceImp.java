@@ -63,5 +63,11 @@ public class DestinoServiceImp implements DestinoService{
 		return repo.findByNombreAndSucursal(nombre, sucursal);
 	}
 
+	@Override
+	public List<Destino> destinoDiferenteDeOtro(String nombreDestino) {
+		
+		return repo.destinoDiferenteDeOtro(nombreDestino);
+	}
+
 	
 }

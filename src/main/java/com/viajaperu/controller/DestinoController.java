@@ -36,6 +36,12 @@ public class DestinoController {
 		return ResponseEntity.ok(service.listarTodo());
 	}
 	
+	@GetMapping("/buscarDiferente/{nombre}")
+	public ResponseEntity<?>buscarDestinosDiferentesOtros(@PathVariable("nombre") String nombre){
+		
+		return ResponseEntity.ok(service.destinoDiferenteDeOtro(nombre)); 
+	}
+	
 	@GetMapping("/{codigo}")
 	public ResponseEntity<?>buscarPorCodigo(@PathVariable("codigo")String codigo){
 		return ResponseEntity.ok(service.buscarDestinoPorCodigo(codigo));
