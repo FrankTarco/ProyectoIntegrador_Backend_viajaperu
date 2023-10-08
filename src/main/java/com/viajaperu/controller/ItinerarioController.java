@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -67,6 +68,31 @@ public class ItinerarioController {
 							+ e.getMessage());
 		}	
 		
+		
+		return ResponseEntity.ok(salida);
+	}
+	
+	@PutMapping
+	public ResponseEntity<?>actualizarItinerario(@RequestBody Itinerario objItinerario){
+		HashMap<String, String> salida = new HashMap<>();
+		try {
+		
+			Optional<Itinerario>itinerario_existe = itinerarioService.buscarPorId(objItinerario.getCod_itinerario());
+			
+			if(itinerario_existe.isEmpty()) {
+				salida.put("mensaje", "No existe el itinerario en el sistema");
+			}else {
+				Itinerario reg = itinerarioService.registraActualizaItinerario(objItinerario);
+				if(reg == null) {
+					salida.put("mensaje", "No se actualizo el itinerario");
+				}else {
+					salida.put("mensaje", "Se actualizo el itinerario correctamente");
+				}
+			}
+			
+		} catch (Exception e) {
+			salida.put("mensaje", "No se pudo conectar al sistema");
+		}
 		
 		return ResponseEntity.ok(salida);
 	}
