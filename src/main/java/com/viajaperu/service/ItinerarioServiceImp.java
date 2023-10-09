@@ -56,6 +56,12 @@ public class ItinerarioServiceImp implements ItinerarioService{
 		return repository.buscarDestino(codorigen, codllegada);
 	}
 
+	@Override
+	public List<Itinerario> itinerariosDisponiblesCliente(String origen, String llegada, String fecha) {
+		
+		return repository.listarItinerariosPorNombresyFecha(origen, llegada, fecha);
+	}
+
 	
 	
 	

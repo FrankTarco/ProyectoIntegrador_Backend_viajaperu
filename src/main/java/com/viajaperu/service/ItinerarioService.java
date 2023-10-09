@@ -15,4 +15,6 @@ public interface ItinerarioService {
 	public List<Itinerario> listarEquipo(String codequipo);
 	public List<Itinerario> listarBus(String codbus);
 	public List<Itinerario> buscarDestino(String codorigen,String codllegada);
+	
+	public List<Itinerario>itinerariosDisponiblesCliente(String origen,String llegada,String fecha);
 }

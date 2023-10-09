@@ -14,10 +14,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.viajaperu.models.Itinerario;
+import com.viajaperu.service.DestinoService;
 import com.viajaperu.service.ItinerarioService;
 import com.viajaperu.utils.AppSettings;
 import com.viajaperu.utils.Utilidades;
@@ -28,6 +30,9 @@ import com.viajaperu.utils.Utilidades;
 public class ItinerarioController {
 	@Autowired
 	private ItinerarioService itinerarioService;
+	
+	@Autowired
+	private DestinoService destinoService;
 	
 	@GetMapping
 	@ResponseBody
@@ -42,6 +47,27 @@ public class ItinerarioController {
 		Optional<Itinerario> b = itinerarioService.buscarPorId(codigo);
 		return ResponseEntity.ok(b);
 	}
+	
+	
+	@GetMapping("/disponible")
+	public ResponseEntity<?>itinerariosDisponiblesClient(@RequestParam("origen") String origen,
+            @RequestParam("llegada") String llegada,
+            @RequestParam("fecha") String fecha){		
+		return ResponseEntity.ok(itinerarioService.itinerariosDisponiblesCliente(origen,llegada,fecha));
+	}
+	
+	
+	@GetMapping("/destinos")
+	public ResponseEntity<?>listarDestinosDiferentes(){
+		return ResponseEntity.ok(destinoService.listarDestinosDiferentes());
+	}
+	
+	@GetMapping("/destinos/{origen}")
+	public ResponseEntity<?>listarDestinosDiferentesSiMismo(@PathVariable("origen")String origen){
+		
+		return ResponseEntity.ok(destinoService.listarDestinosDiferentesSiMismos(origen));
+	}
+	
 	
 	@PostMapping
 	@ResponseBody

@@ -69,5 +69,17 @@ public class DestinoServiceImp implements DestinoService{
 		return repo.destinoDiferenteDeOtro(nombreDestino);
 	}
 
+	@Override
+	public List<String> listarDestinosDiferentes() {
+		// TODO Auto-generated method stub
+		return repo.listarDestinosDiferentes();
+	}
+
+	@Override
+	public List<String> listarDestinosDiferentesSiMismos(String origen) {
+		// TODO Auto-generated method stub
+		return repo.listarDestinosDiferentesSiMismo(origen);
+	}
+
 	
 }

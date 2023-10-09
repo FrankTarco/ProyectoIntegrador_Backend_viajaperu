@@ -16,4 +16,7 @@ public interface DestinoService {
 	public List<Destino>buscarPorNombreDestino(String nombre);
 	public List<Destino>buscarPorNombreAndSucursal(String nombre, String sucursal);
 	public List<Destino>destinoDiferenteDeOtro(String nombreDestino);
+	
+	public List<String>listarDestinosDiferentes();
+	public List<String>listarDestinosDiferentesSiMismos(String origen);
 }

@@ -22,4 +22,10 @@ public interface DestinoRepository extends JpaRepository<Destino, String>{
 	@Query("select d from Destino d where d.nombre<> ?1")
 	public List<Destino>destinoDiferenteDeOtro(String nombreDestino);
 	
+	@Query("select distinct d.nombre from Destino d")
+	public List<String>listarDestinosDiferentes();
+	
+	@Query("select distinct d.nombre from Destino d where d.nombre<> ?1")
+	public List<String>listarDestinosDiferentesSiMismo(String origen);
+	
 }
