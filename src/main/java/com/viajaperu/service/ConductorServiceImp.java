@@ -70,4 +70,10 @@ public class ConductorServiceImp implements ConductorService{
 		return repoconductor.buscarPorDocumentoDiferenteCodigo(documento, codigo);
 	}
 
+	@Override
+	public List<Conductor> buscarConductoresRegistradosEquipoBus(String codigo) {
+		
+		return repoconductor.validarConductoresEnEquipoBus(codigo);
+	}
+
 }

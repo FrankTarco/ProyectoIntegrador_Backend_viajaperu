@@ -16,6 +16,6 @@ public interface ConductorService {
 	public List<Conductor>listarConductorXDocumento(String documento);
 	public List<Conductor>listarConductorXLicenciaDiferenteCodigo(String licencia, String codigo);
 	public List<Conductor>listarConductorXDocumentoDiferenteCodigo(String documento, String codigo);
-	
+	public List<Conductor>buscarConductoresRegistradosEquipoBus(String codigo);
 
 }

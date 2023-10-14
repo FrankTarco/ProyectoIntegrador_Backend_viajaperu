@@ -71,7 +71,7 @@ public class ConductorController {
 					}
 				}else {
 					
-					salida.put("mensaje", "El Conductor con licencia -> ..." + objConductor.getNrolicencia()
+					salida.put("mensaje", "Error: El Conductor con licencia -> ..." + objConductor.getNrolicencia()
 					+ " ...ya se encuentra registrado");
 					
 				}
@@ -79,11 +79,11 @@ public class ConductorController {
 
 			}else {
 				
-				salida.put("mensaje", "El Conductor con Documento -> ..." + objConductor.getNrodocumento()
+				salida.put("mensaje", "Error: El Conductor con Documento -> ..." + objConductor.getNrodocumento()
 				+ " ...ya se encuentra registrado");
 			}
 		} catch (Exception e) {
-			salida.put("mensaje", "Ocurrio un error " + e.getMessage());
+			salida.put("mensaje", "Ocurrio un Error " + e.getMessage());
 		}
 
 		return ResponseEntity.ok(salida);
@@ -144,15 +144,21 @@ public class ConductorController {
 	public ResponseEntity<?> eliminarBus(@PathVariable("codigo") String codigo) {
 
 		HashMap<String, String> salida = new HashMap<>();
-
 		Optional<Conductor> verificar = serviceconductor.buscarPorId(codigo);
 
 		if (verificar.isPresent()) {
-			serviceconductor.eliminarConductor(codigo);
-			salida.put("mensaje", "Se elimino al Conductor..." + codigo);
-
+			
+			List<Conductor> verificarExiste = serviceconductor.buscarConductoresRegistradosEquipoBus(codigo);
+			if(CollectionUtils.isEmpty(verificarExiste)) {
+				serviceconductor.eliminarConductor(codigo);
+				salida.put("mensaje", "Se elimino al Conductor..." + codigo);
+			}
+			else{
+				salida.put("mensaje", "Error: El conductor " + codigo + " ya ha sido asignado a un Equipo de bus");
+			}
+			
 		} else {
-			salida.put("mensaje", "No se encontro al conductor  de codigo..." + codigo);
+			salida.put("mensaje", "Error: No se encontro al conductor  de codigo..." + codigo);
 		}
 
 		return ResponseEntity.ok(salida);

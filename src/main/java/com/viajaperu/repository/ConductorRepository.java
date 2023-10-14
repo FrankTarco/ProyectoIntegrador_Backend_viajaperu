@@ -27,4 +27,7 @@ public interface ConductorRepository extends JpaRepository<Conductor, String> {
 	
 	@Query("SELECT c FROM Conductor c WHERE cod_conductor<>?1 AND NOT EXISTS (SELECT 1 FROM EquipoBus e WHERE e.codchofer = c.cod_conductor or e.codcopiloto = c.cod_conductor)")
 	List<Conductor>buscarCopilotoParaEquipoBus(String cod_conductor);
+	
+	@Query("SELECT c FROM Conductor c WHERE cod_conductor=?1 AND EXISTS (SELECT 1 FROM EquipoBus e WHERE e.codchofer = c.cod_conductor or e.codcopiloto = c.cod_conductor)")
+	List<Conductor>validarConductoresEnEquipoBus(String cod_conductor);
 }
