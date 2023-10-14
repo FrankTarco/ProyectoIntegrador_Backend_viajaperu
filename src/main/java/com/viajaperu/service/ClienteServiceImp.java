@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.viajaperu.models.Cliente;
 import com.viajaperu.repository.ClienteRepository;
+import com.viajaperu.utils.Utilidades;
 
 
 @Service
@@ -24,6 +25,11 @@ public class ClienteServiceImp implements ClienteService{
 
 	@Override
 	public Cliente registrar(Cliente cliente) {
+		
+		Utilidades util = new Utilidades();
+		String codigo = util.generarIdTrasaccion(repo.ultimoCodigoString(),"CLIENTE");
+		
+		cliente.setCod_cliente(codigo);
 		
 		return repo.save(cliente);
 	}

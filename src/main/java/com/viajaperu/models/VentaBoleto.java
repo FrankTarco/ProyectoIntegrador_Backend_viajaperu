@@ -1,10 +1,14 @@
 package com.viajaperu.models;
 
 
+import java.util.List;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
@@ -25,6 +29,9 @@ public class VentaBoleto {
 	@ManyToOne
 	@JoinColumn(name="cod_itinerario", insertable = false, updatable = false)
 	private Itinerario itinerario;
+	
+	@OneToMany(mappedBy = "venta", cascade = CascadeType.ALL,orphanRemoval = true)
+	private List<Boleto>boletos;
 	
 	/*
 	@OneToMany(mappedBy = "venta", cascade = CascadeType.ALL,orphanRemoval = true)

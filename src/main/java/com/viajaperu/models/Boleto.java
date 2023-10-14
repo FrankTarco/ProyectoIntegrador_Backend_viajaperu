@@ -19,14 +19,12 @@ public class Boleto {
 	private String cod_boleto;					
 	private int numero_asiento;		
 	private double precio;
-	private String cod_pasajero;
-	private String cod_venta;
 	
 	@ManyToOne
-	@JoinColumn(name="cod_pasajero",insertable = false,updatable = false)
+	@JoinColumn(name="cod_pasajero")
 	private Pasajero pasajero;
 	
 	@ManyToOne
-	@JoinColumn(name="cod_venta",insertable = false,updatable = false)
+	@JoinColumn(name="cod_venta")
 	private VentaBoleto venta;
 }

@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.viajaperu.models.Pasajero;
 import com.viajaperu.repository.PasajeroRepository;
+import com.viajaperu.utils.Utilidades;
 
 @Service
 public class PasajeroServiceImp implements PasajeroService{
@@ -24,6 +25,10 @@ public class PasajeroServiceImp implements PasajeroService{
 
 	@Override
 	public Pasajero registrarActualizar(Pasajero pasajero) {
+		
+		Utilidades u = new Utilidades();
+		String codigo = u.generarId(repo.ultimoCodigoPasajero(),"PASAJERO");
+		pasajero.setCod_pasajero(codigo);
 		
 		return repo.save(pasajero);
 	}

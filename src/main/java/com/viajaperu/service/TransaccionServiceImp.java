@@ -11,20 +11,15 @@ import com.viajaperu.models.Cliente;
 import com.viajaperu.models.Pago;
 import com.viajaperu.models.Pasajero;
 import com.viajaperu.models.VentaBoleto;
-import com.viajaperu.repository.BoletoRepository;
-import com.viajaperu.repository.PagoRepository;
-import com.viajaperu.repository.VentaBoletoRepository;
-import com.viajaperu.utils.Utilidades;
 
 @Service
-@Transactional
 public class TransaccionServiceImp implements TransaccionService{
 
 	@Autowired
-	private VentaBoletoRepository ventaBolRepo;
+	private VentaBoletoService ventaBolRepo;
 	
 	@Autowired
-	private BoletoRepository boletoRepo;
+	private BoletoService boletoRepo;
 	
 	@Autowired
 	private PasajeroService pasajeroRepo;
@@ -33,23 +28,24 @@ public class TransaccionServiceImp implements TransaccionService{
 	private ClienteService clienteRepo;
 	
 	@Autowired
-	private PagoRepository pagoRepo;
+	private PagoService pagoRepo;
 	
 	@Override
 	public Pago registrarPago(Pago objPago, VentaBoleto objVenta, List<Pasajero>objPasajeros, Cliente objCliente) {
 		
-		//VARIABLES
+	/*	//VARIABLES
 		Utilidades util = new Utilidades();
 		String codigoPasajero;
 		String codigoBoleto;
 		String codigoVentaBoleto;
 		String codigoCliente;
 		String codigoPago;
-		int contadorBoleto = 0;
+		int contadorBoleto = 0; */
+		
 		
 		
 		//FOR ANIDADO PARA REGISTRAR PASAJEROS Y BOLETOS
-		for(Pasajero pasa : objPasajeros) {
+	/*	for(Pasajero pasa : objPasajeros) {
 			codigoPasajero = util.generarId(pasajeroRepo.codigoPasajeroString(), "Pasajero");
 			pasa.setCod_pasajero(codigoPasajero);
 			pasajeroRepo.registrarActualizar(pasa);
@@ -80,61 +76,44 @@ public class TransaccionServiceImp implements TransaccionService{
 		//REGISTRO DEL PAGO
 		codigoPago = util.generarIdTrasaccion(pagoRepo.ultimoCodigoPago(), "Pago");
 		objPago.setCod_pago(codigoPago);
-		objPago.setCliente(objCliente);
+		objPago.setCliente(objCliente); */
 		
-		return pagoRepo.save(objPago);
+		return null;
 	}
 
 	@Override
+	@Transactional
 	public Pago registrarPago2(VentaBoleto objVenta, List<Pasajero> lstPasajeros, List<Boleto> lstBoletos,
 			Cliente objCliente, Pago objPago) {
 		
-		Utilidades util = new Utilidades();
-		String codigoPasajero;
-		String codigoBoleto;
-		String codigoVentaBoleto;
-		String codigoCliente;
-		String codigoPago;
-		int contadorBoleto = 0;
+		int[] contador = {0};
+		//REGISTRAR PRIMERO LA VENTA
+		ventaBolRepo.registarVentaBoleto(objVenta);
 		
-		//REGISTRAR PRIMERO LA VENTA DEL BOLETO
-		codigoVentaBoleto = util.generarIdTrasaccion(ventaBolRepo.ultimoCodVenta(), "Venta");
-		objVenta.setCod_itinerario(codigoVentaBoleto);
-		VentaBoleto vb = ventaBolRepo.save(objVenta);
+		lstPasajeros.forEach(pasajero -> {
+			pasajeroRepo.registrarActualizar(pasajero);
 		
-		//REGISTRAR LOS PASAJEROS Y LOS BOLETOS EN SIMULTANEO
-		
-		for(Pasajero pasa : lstPasajeros) {
-			codigoPasajero = util.generarId(pasajeroRepo.codigoPasajeroString(), "Pasajero");
-			pasa.setCod_pasajero(codigoPasajero);
-			pasajeroRepo.registrarActualizar(pasa);
-			
-			for (int i = contadorBoleto; i < lstBoletos.size();) {
+			for (int i = contador[0]; i < lstBoletos.size();) {
 				Boleto been =  lstBoletos.get(i);
-				been.setCod_venta(vb.getCod_venta());
-				been.setCod_pasajero(codigoPasajero);
-				codigoBoleto = util.generarIdTrasaccion(boletoRepo.ultimoCodigoBoleto(),"Boleto");
-				been.setCod_boleto(codigoBoleto);
-				boletoRepo.save(been);
-				contadorBoleto++;
+				been.setPasajero(pasajero);
+				been.setVenta(objVenta);
+				boletoRepo.registrar(been);
+				contador[0]++;
 				break;
-			}
+			}	
+		});
+		
+	/*	lstBoletos.forEach(boleto ->{
+			boleto.setPasajero(pasajeroRepo.buscarPasajeroXCodigo(boleto.getPasajero().getCod_pasajero()).orElse(null));
+			boleto.setVenta(objVenta);
+			boletoRepo.registrar(boleto);
+		}); */
+		
+		clienteRepo.registrar(objCliente);
+		objPago.setCliente(objCliente);
+		objPago.setVenta(objVenta);
 			
-		}
-		
-		//REGISTRO DEL CLIENTE
-				codigoCliente = util.generarIdTrasaccion(clienteRepo.ultimoCodigo(), "Cliente");
-				objCliente.setCod_cliente(codigoCliente);
-				Cliente reg = clienteRepo.registrar(objCliente);
-				
-				//REGISTRO DEL PAGO
-				codigoPago = util.generarIdTrasaccion(pagoRepo.ultimoCodigoPago(), "Pago");
-				objPago.setCod_pago(codigoPago);
-				objPago.setCod_cliente(reg.getCod_cliente());
-				objPago.setCod_venta(vb.getCod_venta());
-		
-		
-		return pagoRepo.save(objPago);
+		return pagoRepo.registrarPago(objPago);
 	}
 
 }

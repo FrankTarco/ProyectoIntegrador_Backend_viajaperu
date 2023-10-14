@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -11,6 +12,7 @@ import com.viajaperu.repository.CombustibleRepository;
 import com.viajaperu.repository.LicenciaRepository;
 import com.viajaperu.repository.ServicioRepository;
 import com.viajaperu.repository.TipoDocumentoRepository;
+import com.viajaperu.service.BoletoService;
 import com.viajaperu.utils.AppSettings;
 
 @RestController()
@@ -31,6 +33,8 @@ public class UtilController {
 	@Autowired
 	private TipoDocumentoRepository repotipoDoc;
 	
+	@Autowired
+	private BoletoService boletoService;
 	
 	
 	@GetMapping("/lista/licencia")
@@ -56,6 +60,11 @@ public class UtilController {
 	public ResponseEntity<?>listaServicios(){
 		
 		return ResponseEntity.ok(repoServicio.findAll());
+	}
+	
+	@GetMapping("/lista/boletos/{codigo}")
+	public ResponseEntity<?>listarBoletosVendidos(@PathVariable("codigo") String codigo){
+		return ResponseEntity.ok(boletoService.listarBoletosVendidos(codigo));
 	}
 	
 }

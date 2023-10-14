@@ -18,14 +18,13 @@ public class Pago {
 	private String cod_pago;											
 	private String numero_tarjeta;			
 	private String fecha_operacion;
-	private String cod_venta;
-	private String cod_cliente;
+
 	
 	@ManyToOne
-	@JoinColumn(name="cod_venta", insertable = false, updatable = false)
+	@JoinColumn(name="cod_venta")
 	private VentaBoleto venta;
 	
 	@ManyToOne
-	@JoinColumn(name="cod_cliente", insertable = false, updatable = false)
+	@JoinColumn(name="cod_cliente")
 	private Cliente cliente;
 }
