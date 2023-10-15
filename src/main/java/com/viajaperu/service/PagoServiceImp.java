@@ -28,4 +28,10 @@ public class PagoServiceImp implements PagoService{
 		return repo.save(objPago);
 	}
 
+	@Override
+	public Pago buscarPagoPorNumero(String numero) {
+		// TODO Auto-generated method stub
+		return repo.buscarPagosPorNumeroTarjeta(numero);
+	}
+
 }
