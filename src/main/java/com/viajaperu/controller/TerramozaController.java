@@ -113,19 +113,26 @@ public class TerramozaController {
 	}
 	
 	@DeleteMapping("/{id}")
-	@ResponseBody
 	public ResponseEntity<?> eliminaTerramoza(@PathVariable("id") String cod_terramoza){
 		HashMap<String, String> mensaje = new HashMap<>();
 		Optional<Terramoza> optTerramoza = terramozaService.buscaTerramoza(cod_terramoza);
 		if (optTerramoza.isPresent()) {
+			
+			List<Terramoza> verificaexiste = terramozaService.buscarTerramozaEnEquipo(cod_terramoza);
+			if(CollectionUtils.isEmpty(verificaexiste)) {
 			terramozaService.eliminaTerramoza(cod_terramoza);
 			mensaje.put("mensaje", "Se ha eliminado la Terramoza de ID " + cod_terramoza);
 		}else {
-			mensaje.put("mensaje", "No existe la Terramoza de ID " + cod_terramoza);
+			mensaje.put("mensaje", "Error: La terramoza " + cod_terramoza + " pertenece a un Equipo de Bus");
 		}
-		return ResponseEntity.ok(mensaje);
+	}else {
+		mensaje.put("mensaje", "Error: No se encontro a la terramoza  de codigo..." + cod_terramoza);
+		
 	}
-	
+		return ResponseEntity.ok(mensaje);
+		
+	}
+		
 	
 	
 	

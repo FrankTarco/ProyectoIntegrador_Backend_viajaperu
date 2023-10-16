@@ -16,5 +16,6 @@ public interface TerramozaService {
 	public String ultimoRegistroString();
 	public List<Terramoza> buscarTerramozaPorDni(String numero_documento);
 	public List<Terramoza> buscarTerramozaPorDniyCodigo(String numero_documento,String cod_terramoza);
+	public List<Terramoza> buscarTerramozaEnEquipo(String cod_terramoza );
 	
 }
