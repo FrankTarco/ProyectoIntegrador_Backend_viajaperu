@@ -55,5 +55,11 @@ public class TerramozaServiceImp implements TerramozaService{
 		return repository.buscarTerramoza(numero_documento, cod_terramoza);
 	}
 
+	@Override
+	public List<Terramoza> buscarTerramozaEnEquipo(String cod_terramoza) {
+		// TODO Auto-generated method stub
+		return repository.validarTerramozaEnEquipoBus(cod_terramoza);
+	}
+
 
 }
