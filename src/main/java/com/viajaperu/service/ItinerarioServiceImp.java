@@ -62,6 +62,18 @@ public class ItinerarioServiceImp implements ItinerarioService{
 		return repository.listarItinerariosPorNombresyFecha(origen, llegada, fecha);
 	}
 
+	@Override
+	public List<Itinerario> listarItinerariosPorBus(String codbus) {
+		// TODO Auto-generated method stub
+		return repository.buscarItinerariosPorCodigoBus(codbus);
+	}
+
+	@Override
+	public List<Itinerario> listarItinerariosPorEquipo(String codequipo) {
+		// TODO Auto-generated method stub
+		return repository.buscarItinerarioPorCodigoEquipo(codequipo);
+	}
+
 	
 	
 	

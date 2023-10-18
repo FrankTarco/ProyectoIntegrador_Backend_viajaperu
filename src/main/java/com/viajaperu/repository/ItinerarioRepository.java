@@ -22,4 +22,10 @@ public interface ItinerarioRepository extends JpaRepository<Itinerario, String>{
 	@Query("select i from Itinerario i JOIN Destino origen ON i.codorigen=origen.cod_destino JOIN Destino llegada ON i.codllegada=llegada.cod_destino WHERE origen.nombre= ?1 and llegada.nombre= ?2 and i.fecha_salida>= ?3")
 	public List<Itinerario>listarItinerariosPorNombresyFecha(String origen,String llegada,String fecha);
 	
+	@Query("select i FROM Itinerario i WHERE i.codbus= ?1")
+	public List<Itinerario>buscarItinerariosPorCodigoBus(String codbus);
+	
+	@Query("select i FROM Itinerario i WHERE i.codequipo= ?1")
+	public List<Itinerario>buscarItinerarioPorCodigoEquipo(String codequipo);
+	
 }
