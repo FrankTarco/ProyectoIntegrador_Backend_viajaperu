@@ -2,6 +2,8 @@ package com.viajaperu.service;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -27,6 +29,24 @@ public class VentaBoletoImp implements VentaBoletoService{
 		objVentaBoleto.setFecha_operacion(sdf.format(new Date()));
 				
 		return repo.save(objVentaBoleto);
+	}
+
+	@Override
+	public List<VentaBoleto> listarVentas() {
+		// TODO Auto-generated method stub
+		return repo.findAll();
+	}
+
+	@Override
+	public VentaBoleto buscarBoletaPorCodigo(String codigo) {
+		// TODO Auto-generated method stub
+		return repo.encontrarVenta(codigo);
+	}
+
+	@Override
+	public Optional<VentaBoleto> encontrarVenta(String codigo) {
+		// TODO Auto-generated method stub
+		return repo.findById(codigo);
 	}
 
 }

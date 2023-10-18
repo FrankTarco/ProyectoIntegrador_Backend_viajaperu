@@ -64,8 +64,15 @@ public class TransaccionController {
 					}
 					else {
 						salida.put("mensaje", "Se registro el pago correctamente");
+						//RESTRAR EL CREDITO AL CLIENTE
 						tarjeta_existe.get(0).setCredito(tarjeta_existe.get(0).getCredito()-request.getVentaBoleto().getPrecioTotal());
 						tcService.actualizarRegistrar(tarjeta_existe.get(0));
+						
+						//AGREGAR EL CREDITO A VIAJA PERU
+						List<TarjetaCredito>cuenta_viajaperu = tcService.verificarTarjetaPorNumero(AppSettings.NUMERO_TARJETA);
+						cuenta_viajaperu.get(0).setCredito(cuenta_viajaperu.get(0).getCredito() + request.getVentaBoleto().getPrecioTotal());
+						tcService.actualizarRegistrar(cuenta_viajaperu.get(0));
+						
 					}			
 				}						
 			}

@@ -3,8 +3,11 @@ package com.viajaperu.models;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
@@ -26,14 +29,12 @@ public class VentaBoleto {
 	private double precioTotal;
 	private String cod_itinerario;
 	
-	@ManyToOne
-	@JoinColumn(name="cod_itinerario", insertable = false, updatable = false)
+	@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name="cod_itinerario",insertable=false,updatable = false)
 	private Itinerario itinerario;
 	
 	@OneToMany(mappedBy = "venta", cascade = CascadeType.ALL,orphanRemoval = true)
 	private List<Boleto>boletos;
 	
-	/*
-	@OneToMany(mappedBy = "venta", cascade = CascadeType.ALL,orphanRemoval = true)
-	private List<Boleto>boletos= new ArrayList<>();*/
 }

@@ -2,7 +2,6 @@ package com.viajaperu.service;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -34,4 +33,5 @@ public class PagoServiceImp implements PagoService{
 		return repo.buscarPagosPorNumeroTarjeta(numero);
 	}
 
+	
 }
