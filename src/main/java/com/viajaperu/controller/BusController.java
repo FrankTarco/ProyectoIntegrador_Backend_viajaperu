@@ -56,25 +56,39 @@ public class BusController {
 			List<Bus> busplaca = service.listarBusXPlaca(objBus.getPlaca());
 			
 			if(CollectionUtils.isEmpty(busplaca)) {
-				//SE PROCEDE A REGISTRAR		
-				objBus.setCod_bus(cod);			
-				Bus busInsertado = service.registrarActualizarBus(objBus);
-				if(busInsertado == null) {
-					salida.put("mensaje", "No se inserto el bus por un error");
+				//SE PROCEDE A REGISTRAR
+				if(objBus.getTotal_asientos()<=objBus.getTotal_pasajeros()) {
+					
+					salida.put("mensaje", "Error: Los asientos no pueden ser menores o iguales a los disponibles para los pasajeros");
 				}
 				else {
-					salida.put("mensaje", "Bus insertado correctamente");
-				}
+					
+					if(objBus.getTotal_asientos() != (objBus.getTotal_pasajeros()+3)) {
+						salida.put("mensaje", "Error: La diferencia entre asientos y pasajeros solo puede ser de 3");	
+					}
+					else {
+						objBus.setCod_bus(cod);			
+						Bus busInsertado = service.registrarActualizarBus(objBus);
+						if(busInsertado == null) {
+							salida.put("mensaje", "Error: No se inserto el bus por un error");
+						}
+						else {
+							salida.put("mensaje", "Bus insertado correctamente");
+						}
+						
+					}			
+					
+				}		
 				
 			}
 			else {
 				//SI ENCUENTRA LA PLACA
-				salida.put("mensaje", "La placa: "+ objBus.getPlaca() + " ya se encuentra registrada");
+				salida.put("mensaje", "Error: La placa: "+ objBus.getPlaca() + " ya se encuentra registrada");
 			}
 			
 			
 		} catch (Exception e) {
-			salida.put("mensaje", "Ocurrio un error " + e.getMessage());
+			salida.put("mensaje", "Error: No se pudo realizar la operacion " + e.getMessage());
 		}
 		
 		
@@ -93,7 +107,7 @@ public class BusController {
 					//PROCEDE A ACTUALIZAR
 					Bus busActualizado = service.registrarActualizarBus(objBus);			
 					if(busActualizado == null) {
-						salida.put("mensaje", "No se actualizo el bus por un error");
+						salida.put("mensaje", "Error: No se actualizo el bus por un error");
 					}				
 					else {
 						salida.put("mensaje", "Bus "+ objBus.getCod_bus()+ " correctamente");
@@ -101,16 +115,16 @@ public class BusController {
 					
 				}else {
 					
-					salida.put("mensaje", "La placa: "+objBus.getPlaca()+" ya existe en el sistema");
+					salida.put("mensaje", "Error: La placa: "+objBus.getPlaca()+" ya existe en el sistema");
 				}
 						
 			}
 			else {
-				salida.put("mensaje", "El bus "+objBus.getCod_bus()+" no existe en el sistema");
+				salida.put("mensaje", "Error: El bus "+objBus.getCod_bus()+" no existe en el sistema");
 			}
 			
 		} catch (Exception e) {
-			salida.put("mensaje", "Ocurrio un error " + e.getMessage());
+			salida.put("mensaje", "Error: No se pudo realizar la operacion " + e.getMessage());
 		}		
 		return ResponseEntity.ok(salida);	
 	}
@@ -124,12 +138,18 @@ public class BusController {
 		Optional<Bus> verificar = service.buscarPorId(codigo);
 		
 		if(verificar.isPresent()) {
-			service.eliminarBus(codigo);
-			salida.put("mensaje", "Se elimino al bus");
-			
+			List<Bus>validar = service.encontrarBusenItinerario(codigo);
+			if(CollectionUtils.isEmpty(validar)) {
+				service.eliminarBus(codigo);
+				salida.put("mensaje", "Se elimino al bus");
+			}
+			else {
+				salida.put("mensaje", "Error: El bus ya ha sido asignado a un itinerario");
+			}
+					
 		}
 		else {
-			salida.put("mensaje", "No se encontro al bus de codigo " + codigo);
+			salida.put("mensaje", "Error: No se encontro al bus de codigo " + codigo);
 		}
 		
 		return ResponseEntity.ok(salida);

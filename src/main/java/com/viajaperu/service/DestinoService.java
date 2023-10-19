@@ -19,4 +19,5 @@ public interface DestinoService {
 	
 	public List<String>listarDestinosDiferentes();
 	public List<String>listarDestinosDiferentesSiMismos(String origen);
+	public List<Destino>validarEliminarDestino(String codigo);
 }

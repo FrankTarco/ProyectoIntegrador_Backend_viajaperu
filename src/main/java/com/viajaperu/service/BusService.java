@@ -14,5 +14,6 @@ public interface BusService {
 	public Optional<Bus> buscarPorId(String codigo);
 	public List<Bus>listarBusXPlaca(String placa);
 	public List<Bus>listarBusXPlacaDiferenteCodigo(String placa, String codigo);
+	public List<Bus>encontrarBusenItinerario(String codigo);
 	
 }

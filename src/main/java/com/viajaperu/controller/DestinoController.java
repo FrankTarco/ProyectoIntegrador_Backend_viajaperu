@@ -61,14 +61,14 @@ public class DestinoController {
 				objDestino.setCod_destino(cod);				
 				Destino destinoRegistrado = service.registarActualizar(objDestino);
 				if(destinoRegistrado == null) {
-					salida.put("mensaje", "No se registro, verifique la informacion");
+					salida.put("mensaje", "Error: No se registro, verifique la informacion");
 				}
 				else {
 					salida.put("mensaje", "Se registro correctamente el destino");
 				}
 				
 			}else {
-				salida.put("mensaje", "El nombre de destino "+ objDestino.getNombre()+ "y la sucursal "+objDestino.getSucursal()+" ya existen");
+				salida.put("mensaje", "Error: El nombre de destino "+ objDestino.getNombre()+ " y la sucursal "+objDestino.getSucursal()+" ya existen");
 				
 			}
 			
@@ -96,21 +96,21 @@ public class DestinoController {
 					Destino destinoActualizado = service.registarActualizar(objDestino);
 					if(destinoActualizado==null) {
 						
-						salida.put("mensaje", "No se pudo actualizar, verificar");
+						salida.put("mensaje", "Error: No se pudo actualizar, verificar");
 					}else {
 						salida.put("mensaje", "Se actualizo el destino " + objDestino.getCod_destino());
 					}
 					
 				}else {
-					salida.put("mensaje", "El nobmre de destino "+objDestino.getNombre()+" ya existe");
+					salida.put("mensaje", "Error: El nobmre de destino "+objDestino.getNombre()+" ya existe");
 				}
 				
 			}else {
-				salida.put("mensaje", "El destino "+objDestino.getCod_destino()+" no existe");
+				salida.put("mensaje", "Error: El destino "+objDestino.getCod_destino()+" no existe");
 			}			
 			
 		} catch (Exception e) {
-			salida.put("mensaje", "Ocurrio un error en la conexion " + e.getMessage());
+			salida.put("mensaje", "Error: Ocurrio un error en la conexion " + e.getMessage());
 		}
 		
 		return ResponseEntity.ok(salida);
@@ -126,11 +126,17 @@ public class DestinoController {
 		Optional<Destino> DestinoExiste = service.buscarDestinoPorCodigo(codigo);
 		if(DestinoExiste.isPresent()) {
 			
-			service.eliminarDestino(codigo);
-			salida.put("mensaje", "Se elimino el destino "+ codigo);
-			
+			List<Destino>validar = service.validarEliminarDestino(codigo);
+			if(CollectionUtils.isEmpty(validar)) {
+				service.eliminarDestino(codigo);
+				salida.put("mensaje", "Se elimino el destino "+ codigo);
+			}
+			else {
+				salida.put("mensaje", "Error: El destino ya ha sido asignado a un itinerario ");
+			}
+				
 		}else {
-			salida.put("mensaje", "El destino"+codigo+" no existe en el sistema");
+			salida.put("mensaje", "Error: El destino "+codigo+" no existe en el sistema");
 		}
 			
 		return ResponseEntity.ok(salida);

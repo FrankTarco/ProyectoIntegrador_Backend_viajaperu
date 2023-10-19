@@ -58,4 +58,10 @@ public class BusServiceImp implements BusService{
 		return repo.buscarPorPlacaDiferenteCodigo(placa, codigo);
 	}
 
+	@Override
+	public List<Bus> encontrarBusenItinerario(String codigo) {
+		// TODO Auto-generated method stub
+		return repo.encontrarBusEnItinerario(codigo);
+	}
+
 }

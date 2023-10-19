@@ -81,5 +81,11 @@ public class DestinoServiceImp implements DestinoService{
 		return repo.listarDestinosDiferentesSiMismo(origen);
 	}
 
+	@Override
+	public List<Destino> validarEliminarDestino(String codigo) {
+		// TODO Auto-generated method stub
+		return repo.existeDestinoEnItinerario(codigo);
+	}
+
 	
 }
