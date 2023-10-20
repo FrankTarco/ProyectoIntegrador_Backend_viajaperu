@@ -32,4 +32,6 @@ public class Pago {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="cod_cliente")
 	private Cliente cliente;
+	
+	private String tipo;
 }

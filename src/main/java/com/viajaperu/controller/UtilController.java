@@ -13,6 +13,7 @@ import com.viajaperu.repository.LicenciaRepository;
 import com.viajaperu.repository.ServicioRepository;
 import com.viajaperu.repository.TipoDocumentoRepository;
 import com.viajaperu.service.BoletoService;
+import com.viajaperu.service.PagoService;
 import com.viajaperu.service.VentaBoletoService;
 import com.viajaperu.utils.AppSettings;
 
@@ -39,6 +40,9 @@ public class UtilController {
 	
 	@Autowired
 	private VentaBoletoService vbService;
+	
+	@Autowired
+	private PagoService pService;
 	
 	
 	@GetMapping("/lista/licencia")
@@ -78,7 +82,7 @@ public class UtilController {
 	
 	@GetMapping("/listaventa/{codigo}")
 	public ResponseEntity<?>ventasPorCodigo(@PathVariable("codigo")String codigo){
-		return ResponseEntity.ok(vbService.encontrarVenta(codigo));
+		return ResponseEntity.ok(pService.buscarPagoPorCodigo(codigo));
 	}
 	
 }
