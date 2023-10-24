@@ -1,5 +1,8 @@
 package com.viajaperu.controller;
 
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.List;
 
@@ -20,10 +23,15 @@ import com.viajaperu.creditcard.TarjetaCreditoService;
 import com.viajaperu.models.Pago;
 import com.viajaperu.models.VentaBoleto;
 import com.viajaperu.models.VentaRequest;
+import com.viajaperu.service.ClienteService;
+import com.viajaperu.service.EmailService;
 import com.viajaperu.service.PagoService;
+import com.viajaperu.service.PdfService;
 import com.viajaperu.service.TransaccionService;
 import com.viajaperu.service.VentaBoletoService;
 import com.viajaperu.utils.AppSettings;
+
+import jakarta.servlet.http.HttpServletResponse;
 
 @RestController()
 @RequestMapping("/rest/transaccion")
@@ -38,6 +46,15 @@ public class TransaccionController {
 	
 	@Autowired
 	private TarjetaCreditoService tcService;
+	
+	@Autowired
+	private PdfService pdfService;
+	
+	@Autowired
+	private EmailService emailService;
+	
+	@Autowired
+	private ClienteService clienteService;
 	
 	@Autowired PagoService pservice;
 	
@@ -125,5 +142,36 @@ public class TransaccionController {
 		
 		return ResponseEntity.ok(salida);
 	}
+	
+	
+	@GetMapping("/export")
+	public void descargarPDF(HttpServletResponse response) {
+		try {
+			
+			Path file = Paths.get(pdfService.generatePlacesPdf().getAbsolutePath());
+			if(Files.exists(file)) {
+				response.setContentType("application/pdf");
+				response.addHeader("Content-Disposition", "attachment; filename"+ file.getFileName());
+				Files.copy(file, response.getOutputStream());
+				response.getOutputStream().flush();
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	
+	@GetMapping("/email/{correo}")
+	public void enviarEmail(@PathVariable("correo")String correo) {
+		this.emailService.senderListEmail(correo);
+	}
+	
+	@GetMapping("/cliente/{numero}")
+	public ResponseEntity<?>buscarPorDocumento(@PathVariable("numero")String numero){
+		
+		return ResponseEntity.ok(clienteService.clientPorDocument(numero));
+	}
+	
 	
 }

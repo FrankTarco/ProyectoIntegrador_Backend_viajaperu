@@ -52,4 +52,10 @@ public class ClienteServiceImp implements ClienteService{
 		return repo.findByNumeroDocumento(numero_documento);
 	}
 
+	@Override
+	public Cliente clientPorDocument(String numero) {
+		// TODO Auto-generated method stub
+		return repo.encontrarPorDocumento(numero);
+	}
+
 }

@@ -109,8 +109,16 @@ public class TransaccionServiceImp implements TransaccionService{
 			boletoRepo.registrar(boleto);
 		}); */
 		
-		clienteRepo.registrar(objCliente);
-		objPago.setCliente(objCliente);
+		//VALIDAR SI EL CLIENTE EXISTE
+		Cliente cli_existe = clienteRepo.clientPorDocument(objCliente.getNumeroDocumento());
+		if(cli_existe == null) {
+			clienteRepo.registrar(objCliente);
+			objPago.setCliente(objCliente);
+		}
+		else {
+			objPago.setCliente(cli_existe);
+		}
+				
 		objPago.setVenta(objVenta);
 			
 		return pagoRepo.registrarPago(objPago);

@@ -13,4 +13,6 @@ public interface PagoService {
 	
 	public Optional<Pago>buscarPagoPorCodigo(String codigo);
 	
+	public Pago ultimoPago();
+	
 }

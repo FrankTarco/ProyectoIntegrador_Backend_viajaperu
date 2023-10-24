@@ -13,4 +13,6 @@ public interface ClienteService {
 	public String ultimoCodigo();
 	public List<Cliente>buscarPorDocumento(String numero_documento);
 	
+	public Cliente clientPorDocument(String numero);
+	
 }

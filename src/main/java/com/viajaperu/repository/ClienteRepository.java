@@ -13,4 +13,7 @@ public interface ClienteRepository extends JpaRepository<Cliente, String>{
 	public String ultimoCodigoString();
 	
 	public List<Cliente> findByNumeroDocumento(String numeroDocumento);
+	
+	@Query("SELECT c FROM Cliente c WHERE c.numeroDocumento= ?1")
+	public Cliente encontrarPorDocumento(String numero);
 }

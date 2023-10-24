@@ -41,5 +41,11 @@ public class PagoServiceImp implements PagoService{
 		return repo.findById(codigo);
 	}
 
+	@Override
+	public Pago ultimoPago() {
+		// TODO Auto-generated method stub
+		return repo.ultimoPago();
+	}
+
 	
 }

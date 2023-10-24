@@ -80,6 +80,11 @@ public class UtilController {
 		return ResponseEntity.ok(vbService.listarVentas());
 	}
 	
+	@GetMapping("/listapago")
+	public ResponseEntity<?>cdpUltimo(){
+		return ResponseEntity.ok(pService.ultimoPago());
+	}
+	
 	@GetMapping("/listaventa/{codigo}")
 	public ResponseEntity<?>ventasPorCodigo(@PathVariable("codigo")String codigo){
 		return ResponseEntity.ok(pService.buscarPagoPorCodigo(codigo));
