@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.CollectionUtils;
 
 import com.viajaperu.models.Boleto;
 import com.viajaperu.models.Cliente;
@@ -91,24 +92,33 @@ public class TransaccionServiceImp implements TransaccionService{
 		ventaBolRepo.registarVentaBoleto(objVenta);
 		
 		lstPasajeros.forEach(pasajero -> {
-			pasajeroRepo.registrarActualizar(pasajero);
-		
-			for (int i = contador[0]; i < lstBoletos.size();) {
-				Boleto been =  lstBoletos.get(i);
-				been.setPasajero(pasajero);
-				been.setVenta(objVenta);
-				boletoRepo.registrar(been);
-				contador[0]++;
-				break;
-			}	
+			
+			List<Pasajero>pasajero_existe = pasajeroRepo.buscarPasajeroXDocumento(pasajero.getNumeroDocumento());
+			
+			if(CollectionUtils.isEmpty(pasajero_existe)) {
+				pasajeroRepo.registrarActualizar(pasajero);
+				
+				for (int i = contador[0]; i < lstBoletos.size();) {
+					Boleto been =  lstBoletos.get(i);
+					been.setPasajero(pasajero);
+					been.setVenta(objVenta);
+					boletoRepo.registrar(been);
+					contador[0]++;
+					break;
+				}
+			}
+			else {
+				for (int i = contador[0]; i < lstBoletos.size();) {
+					Boleto been =  lstBoletos.get(i);
+					been.setPasajero(pasajero_existe.get(0));
+					been.setVenta(objVenta);
+					boletoRepo.registrar(been);
+					contador[0]++;
+					break;
+				}
+			}		
 		});
-		
-	/*	lstBoletos.forEach(boleto ->{
-			boleto.setPasajero(pasajeroRepo.buscarPasajeroXCodigo(boleto.getPasajero().getCod_pasajero()).orElse(null));
-			boleto.setVenta(objVenta);
-			boletoRepo.registrar(boleto);
-		}); */
-		
+			
 		//VALIDAR SI EL CLIENTE EXISTE
 		Cliente cli_existe = clienteRepo.clientPorDocument(objCliente.getNumeroDocumento());
 		if(cli_existe == null) {
