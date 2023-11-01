@@ -28,7 +28,7 @@ public class EmailService {
 		MimeMessage message = javaMailSender.createMimeMessage();
 		try {
 			MimeMessageHelper helper = new MimeMessageHelper(message,true);
-			File file = pdfService.generatePlacesPdf();
+			File file = pdfService.generatePlacesPdf("placesPDF");
 			helper.setFrom(email);
 			helper.setTo(emailTo);
 			helper.setSubject("Listado de boletos");
@@ -40,5 +40,23 @@ public class EmailService {
 			// TODO: handle exception
 		}
 	}
+	
+	public void senderFacturaEmail(String emailTo) {
+		MimeMessage message = javaMailSender.createMimeMessage();
+		try {
+			MimeMessageHelper helper = new MimeMessageHelper(message,true);
+			File file = pdfService.generatePlacesPdf("facturaPDF");
+			helper.setFrom(email);
+			helper.setTo(emailTo);
+			helper.setSubject("Listado de boletos");
+			helper.setText("Estimado cliente le adjuntamos su factura con mas detalles sobre su transaccion");
+			helper.addAttachment("Factura.pdf", file);
+			javaMailSender.send(message);
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+	}
+	
 	
 }

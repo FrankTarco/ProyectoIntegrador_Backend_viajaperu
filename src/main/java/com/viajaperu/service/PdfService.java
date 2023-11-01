@@ -27,9 +27,9 @@ public class PdfService {
         this.springTemplateEngine = springTemplateEngine;
         this.docService = _docService;
     }
-    public File generatePlacesPdf() throws Exception{
+    public File generatePlacesPdf(String ruta) throws Exception{
         Context context = getContextPlaceListPdf();
-        String html = loadAndFillTemplate(context);
+        String html = loadAndFillTemplate(context,ruta);
         String xhtml = convertToXhtml(html);
         return renderPlaceListPdf(xhtml);
     }
@@ -71,8 +71,8 @@ public class PdfService {
         context.setVariable("objPago", placeList);
         return context;
     }
-    private String loadAndFillTemplate(Context context) {
-        return springTemplateEngine.process("placesPDF", context);
+    private String loadAndFillTemplate(Context context,String ruta) {
+        return springTemplateEngine.process(ruta, context);
     }
 
 }

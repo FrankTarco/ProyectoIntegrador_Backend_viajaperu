@@ -148,7 +148,25 @@ public class TransaccionController {
 	public void descargarPDF(HttpServletResponse response) {
 		try {
 			
-			Path file = Paths.get(pdfService.generatePlacesPdf().getAbsolutePath());
+			Path file = Paths.get(pdfService.generatePlacesPdf("placesPDF").getAbsolutePath());
+			if(Files.exists(file)) {
+				response.setContentType("application/pdf");
+				response.addHeader("Content-Disposition", "attachment; filename"+ file.getFileName());
+				Files.copy(file, response.getOutputStream());
+				response.getOutputStream().flush();
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	//DESCARGAR ARCHIVO DE LA FACTURA
+	@GetMapping("/export/factura")
+	public void descargarFactura(HttpServletResponse response) {
+		try {
+			
+			Path file = Paths.get(pdfService.generatePlacesPdf("facturaPDF").getAbsolutePath());
 			if(Files.exists(file)) {
 				response.setContentType("application/pdf");
 				response.addHeader("Content-Disposition", "attachment; filename"+ file.getFileName());
@@ -165,6 +183,12 @@ public class TransaccionController {
 	@GetMapping("/email/{correo}")
 	public void enviarEmail(@PathVariable("correo")String correo) {
 		this.emailService.senderListEmail(correo);
+	}
+	
+	//ENVIAR CORREO DE LA FACTURA
+	@GetMapping("/email/factura/{correo}")
+	public void enviarEmailFactura(@PathVariable("correo")String correo) {
+		this.emailService.senderFacturaEmail(correo);
 	}
 	
 	@GetMapping("/cliente/{numero}")
