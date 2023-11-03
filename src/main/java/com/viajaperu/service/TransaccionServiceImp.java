@@ -32,53 +32,7 @@ public class TransaccionServiceImp implements TransaccionService{
 	private PagoService pagoRepo;
 	
 	@Override
-	public Pago registrarPago(Pago objPago, VentaBoleto objVenta, List<Pasajero>objPasajeros, Cliente objCliente) {
-		
-	/*	//VARIABLES
-		Utilidades util = new Utilidades();
-		String codigoPasajero;
-		String codigoBoleto;
-		String codigoVentaBoleto;
-		String codigoCliente;
-		String codigoPago;
-		int contadorBoleto = 0; */
-		
-		
-		
-		//FOR ANIDADO PARA REGISTRAR PASAJEROS Y BOLETOS
-	/*	for(Pasajero pasa : objPasajeros) {
-			codigoPasajero = util.generarId(pasajeroRepo.codigoPasajeroString(), "Pasajero");
-			pasa.setCod_pasajero(codigoPasajero);
-			pasajeroRepo.registrarActualizar(pasa);
-			
-			for (int i = contadorBoleto; i < 10;) {
-				Boleto been =  new Boleto(); // objVenta.getBoletos().get(i);
-				been.setVenta(objVenta);
-				been.setPasajero(pasa);
-				codigoBoleto = util.generarIdTrasaccion(boletoRepo.ultimoCodigoBoleto(),"boleto");
-				been.setCod_boleto(codigoBoleto);
-				boletoRepo.save(been);
-				contadorBoleto++;
-				break;
-			}
-			
-		}
-		
-		//REGISTRO DE LA VENTA DEL BOLETO
-		codigoVentaBoleto = util.generarIdTrasaccion(ventaBolRepo.ultimoCodVenta(), "Venta");
-		objVenta.setCod_venta(codigoVentaBoleto);
-		ventaBolRepo.save(objVenta);
-		
-		//REGISTRO DEL CLIENTE
-		codigoCliente = util.generarIdTrasaccion(clienteRepo.ultimoCodigo(), "Cliente");
-		objCliente.setCod_cliente(codigoCliente);
-		clienteRepo.registrar(objCliente);
-		
-		//REGISTRO DEL PAGO
-		codigoPago = util.generarIdTrasaccion(pagoRepo.ultimoCodigoPago(), "Pago");
-		objPago.setCod_pago(codigoPago);
-		objPago.setCliente(objCliente); */
-		
+	public Pago registrarPago(Pago objPago, VentaBoleto objVenta, List<Pasajero>objPasajeros, Cliente objCliente) {	
 		return null;
 	}
 

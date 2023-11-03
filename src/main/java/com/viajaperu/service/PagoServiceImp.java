@@ -47,5 +47,11 @@ public class PagoServiceImp implements PagoService{
 		return repo.ultimoPago();
 	}
 
+	@Override
+	public Pago buscarPagoPorClienteDocumento(String documento) {
+		// TODO Auto-generated method stub
+		return repo.buscarPagosPorClienteDocumento(documento);
+	}
+
 	
 }

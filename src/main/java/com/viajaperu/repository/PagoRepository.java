@@ -16,4 +16,8 @@ public interface PagoRepository extends JpaRepository<Pago, String>{
 	
 	@Query("SELECT p FROM Pago p ORDER BY p.cod_pago DESC LIMIT 1")
 	public Pago ultimoPago();
+	
+	@Query("SELECT p FROM Pago p WHERE p.cliente.numeroDocumento= ?1 ORDER BY p.cod_pago DESC LIMIT 1")
+	public Pago buscarPagosPorClienteDocumento(String documento);
+	
 }

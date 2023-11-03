@@ -197,5 +197,11 @@ public class TransaccionController {
 		return ResponseEntity.ok(clienteService.clientPorDocument(numero));
 	}
 	
+	@GetMapping("/clidoc/{documento}")
+	public ResponseEntity<?>buscarPorClienteDocumento(@PathVariable("documento")String documento){
+		
+		return ResponseEntity.ok(pservice.buscarPagoPorClienteDocumento(documento));
+	}
+	
 	
 }

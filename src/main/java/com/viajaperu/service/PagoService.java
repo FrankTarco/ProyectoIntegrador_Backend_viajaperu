@@ -15,4 +15,6 @@ public interface PagoService {
 	
 	public Pago ultimoPago();
 	
+	public Pago buscarPagoPorClienteDocumento(String documento);
+	
 }
