@@ -57,6 +57,7 @@ public class MainSecurity   {
         .authorizeHttpRequests(auth -> auth
         .requestMatchers("/url/auth/**").permitAll()
         .requestMatchers("/rest/**").permitAll()
+        .requestMatchers("/v3/api-docs/**").permitAll()
         .anyRequest()
         .authenticated());
         
