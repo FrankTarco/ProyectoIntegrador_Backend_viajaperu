@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="../pdf-resources/css/facturaPdfStyle.css" />
+</head>
+
+<body>
+    <div class="factura">
+        <div class="encabezado">
+          <h2>Viaja Perù</h2>
+            <p>RUC: 12345678901</p>
+            <p>Razón Social: Viaja Perù S.A.</p>
+            <p>Dirección: Av. Principal 123</p>
+        </div>
+        
+            
+        
+        <div class="imagen-empresa">
+            <img src="https://viaja-peru.com/images/logo_viaja_peru.jpg" alt="Logo" width="100%">
+<div class="numero-factura">       
+<p>N° Factura: </p>
+<p th:text="${objPago.cod_pago}"></p>
+</div>
+	 </div>
+        <div class="datos-empresa">
+            
+        </div>
+        <div class="datos-cliente">
+            <h2>Datos del Cliente</h2>
+            <p th:text="${'Nombre del cliente: ' + objPago.cliente.nombre}"></p>
+            <p th:text="${'RUC: ' + objPago.cliente.numeroDocumento}"></p>
+            <p th:text="${'Direccion: ' + objPago.cliente.direccion}"></p>
+        </div>
+        <div class="detalle-factura">
+            <h2>Detalle de la Factura</h2>
+            <table border="1" cellspacing="0" cellpadding="5" width="100%">
+                <tr>
+                    <th>Descripción</th>
+                    <th>Cantidad</th>
+                    <th>Precio Unitario</th>
+                    <th>Total</th>
+                </tr>
+                <tr  th:each="boleto : ${objPago.venta.boletos}">
+                    <td th:text="${objPago.venta.itinerario.objOrigen.nombre + ' ' + objPago.venta.itinerario.objOrigen.sucursal + ' - ' + objPago.venta.itinerario.objLlegada.nombre + ' ' + objPago.venta.itinerario.objLlegada.sucursal}"></td>
+                    <td th:text="${boleto.numero_asiento}"></td>
+                    <td th:text="${boleto.precio}"></td>
+                    <td th:text="${boleto.precio}"></td>
+                </tr>
+            </table>
+        </div>
+        <div class="total">
+            <p th:text="${'Total: ' + objPago.venta.precioTotal}"></p>
+        </div>
+    </div>
+</body>
+
+</html>
+
+</html>

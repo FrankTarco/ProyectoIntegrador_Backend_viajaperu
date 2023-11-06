@@ -1,0 +1,61 @@
+@page {
+    size: A4 landscape;
+}
+
+body {
+            font-family: "Courier New", Courier, monospace;
+}
+.factura {
+            width: 80%;
+            margin: 0 auto;
+            padding: 20px;
+             border: 1px solid red; 
+			border-radius: 10px; 
+      		position: relative; 
+    
+}
+.encabezado {
+            text-align: center;
+}
+.numero-factura {
+            margin-top: 20px;
+            font-size: 16px;
+			text-align: center;
+}
+.imagen-empresa {
+	
+        border: 1px solid red; 
+        max-width: 100%; 
+        display: block; 
+        margin: 0 auto; 
+		position: absolute;
+        top: 20px;
+        right: 50px;
+   
+ }
+.datos-empresa {
+            margin-top: 20px;
+}
+.datos-cliente {
+            margin-top: 20px;
+        }
+.detalle-factura {
+            margin-top: 20px;
+        }
+.detalle-factura table {
+        border: 1.5px solid red; 
+        width: 100%;
+        border-collapse: collapse;
+	
+    }
+.detalle-factura th, .detalle-factura td {
+
+        border: 1.5px solid red; 
+        padding: 5px;
+    }
+.total {
+            margin-top: 20px;
+            text-align: right;
+        }
+
+

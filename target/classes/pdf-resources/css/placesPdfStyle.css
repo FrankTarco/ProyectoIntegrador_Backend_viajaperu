@@ -1,0 +1,56 @@
+@page {
+    size: 4.0in 10.5in;
+}
+.contenedor{
+    display: -webkit-flex;
+    webkit-justify-content: center;
+  	flex-direction: column;
+  	align-items: center;
+  	margin-top: 10px;
+  	justify-content: center;
+}
+
+P{
+    font-size: 15px;
+    font-weight: bold;
+}
+.text{
+    font-size: 13px;
+    margin-top: -15px;
+}
+
+span{
+    font-size: 13px;
+    margin-top: -2px;
+}
+
+th{
+    font-weight: normal;
+}
+
+.tablas{
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.columna{
+	width: 50%;
+	text-align: left;
+	margin-left: 10px;
+}
+.columna2{
+	width: 50%;
+	text-align:left;
+}
+
+.listasientos{
+	list-style: none;
+	padding: 0;
+	margin: 0;
+}
+
+.listasientos span{
+	display: inline-block;
+	margin-right: 5px;
+}
+
