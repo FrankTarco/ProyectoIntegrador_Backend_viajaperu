@@ -90,4 +90,9 @@ public class UtilController {
 		return ResponseEntity.ok(pService.buscarPagoPorCodigo(codigo));
 	}
 	
+	@GetMapping("/lista/chart")
+	public ResponseEntity<?>listarVentasParaGrafico(){
+		return ResponseEntity.ok(vbService.listaVentasParaGrafico());
+	}
+	
 }

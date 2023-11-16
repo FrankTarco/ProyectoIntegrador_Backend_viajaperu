@@ -14,4 +14,6 @@ public interface VentaBoletoService {
 	public VentaBoleto buscarBoletaPorCodigo(String codigo);
 	
 	public Optional<VentaBoleto>encontrarVenta(String codigo);
+	
+	public List<Object[]> listaVentasParaGrafico();
 }

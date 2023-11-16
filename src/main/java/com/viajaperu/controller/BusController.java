@@ -67,7 +67,8 @@ public class BusController {
 						salida.put("mensaje", "Error: La diferencia entre asientos y pasajeros solo puede ser de 3");	
 					}
 					else {
-						objBus.setCod_bus(cod);			
+						objBus.setCod_bus(cod);
+						objBus.setMarca(objBus.getMarca().toUpperCase());
 						Bus busInsertado = service.registrarActualizarBus(objBus);
 						if(busInsertado == null) {
 							salida.put("mensaje", "Error: No se inserto el bus por un error");

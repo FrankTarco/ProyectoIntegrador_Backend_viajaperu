@@ -203,5 +203,11 @@ public class TransaccionController {
 		return ResponseEntity.ok(pservice.buscarPagoPorClienteDocumento(documento));
 	}
 	
+	@GetMapping("/lista/pagos")
+	public ResponseEntity<?>listarTodosLosPagos(){
+		
+		return ResponseEntity.ok(pservice.listarPagos());
+	}
+	
 	
 }

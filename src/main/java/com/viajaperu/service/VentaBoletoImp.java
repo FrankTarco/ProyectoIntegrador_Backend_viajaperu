@@ -2,6 +2,7 @@ package com.viajaperu.service;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -47,6 +48,12 @@ public class VentaBoletoImp implements VentaBoletoService{
 	public Optional<VentaBoleto> encontrarVenta(String codigo) {
 		// TODO Auto-generated method stub
 		return repo.findById(codigo);
+	}
+
+	@Override
+	public List<Object[]> listaVentasParaGrafico() {
+		// TODO Auto-generated method stub
+		return repo.listarParaGrafico();
 	}
 
 }

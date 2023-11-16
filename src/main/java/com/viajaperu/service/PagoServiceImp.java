@@ -2,6 +2,7 @@ package com.viajaperu.service;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,6 +52,12 @@ public class PagoServiceImp implements PagoService{
 	public Pago buscarPagoPorClienteDocumento(String documento) {
 		// TODO Auto-generated method stub
 		return repo.buscarPagosPorClienteDocumento(documento);
+	}
+
+	@Override
+	public List<Pago> listarPagos() {
+		
+		return repo.findAll();
 	}
 
 	
