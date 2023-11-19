@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="../pdf-resources/css/placesPdfStyle.css" />
+ <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+</head>
+
+<body>
+   
+<div class="contenedor text-center">
+        <img src="https://viaja-peru.com/images/logo_viaja_peru.jpg" alt="" width="200px">
+        <p>VIAJA PERU S.A.C</p>
+        <span class="text text-center">Si va de viaje !Viaje en ViajaPeru!</span><br>
+        <span>R.U.C 10428884222</span><br>
+        <span>Av Tomas Valle 103 Megaterminal Plaza Norte</span><br>
+        <span>Central teléfonica (+51)5261856</span><br>
+        <span>---------------------------------------------------------------------</span><br>
+        <span>Agencia de emisión: <i th:text="${objPago.venta.itinerario.objOrigen.nombre + ' ' + objPago.venta.itinerario.objOrigen.sucursal}"> </i></span><br>
+        <span>Fecha y hora de emision: <i th:text="${objPago.fecha_operacion}"> </i></span><br>
+        <h5 class="text-center">BOLETA ELECTRONICA <br> <i th:text="${objPago.cod_pago}"></i></h5>
+        <span style="margin-top: -15px;">---------------------------------------------------------------------</span><br>
+        <span><b>DATOS DEL VIAJE</b></span><br>
+        <div class="text-center">
+        <table style="width: 300px;" class="tablas">   
+            <tr>
+            <th class="columna"><span><b>Origen:</b></span></th>
+            <th class="columna2"><span th:text="${objPago.venta.itinerario.objOrigen.nombre + ' - ' + objPago.venta.itinerario.objOrigen.sucursal}"></span></th>
+            </tr>
+            <tr>
+                <th class="columna"><span><b>Destino:</b></span></th>
+                <th class="columna2"><span th:text="${objPago.venta.itinerario.objLlegada.nombre + ' - ' + objPago.venta.itinerario.objLlegada.sucursal}"></span></th>
+            </tr>
+            <tr>
+                <th class="columna"><span><b>Embarque:</b></span></th>
+                <th class="columna2"><span th:text="${objPago.venta.itinerario.objOrigen.ubicacion}"></span></th>
+            </tr>
+            <tr>
+                <th class="columna"><span><b>Fecha:</b></span></th>
+                <th class="columna2"><span th:text="${objPago.venta.itinerario.fecha_salida}"></span></th>
+            </tr>
+            <tr>
+                <th class="columna"><span><b>Asientos:</b></span></th>
+                <th class="columna2">
+					<ul style="list-style: none; margin: 0; padding: 0;" th:each="boleto : ${objPago.venta.boletos}">
+          			  <span style="display: inline-block;" th:text="${boleto.numero_asiento + ' '}"></span>
+       				</ul >
+				</th>
+            </tr>
+            <tr>
+                <th class="columna"><span><b>Servicio:</b></span></th>
+                <th class="columna2"><span th:text="${objPago.venta.itinerario.objBus.objServicio.nombre}"></span></th>
+            </tr>     
+        </table>
+		</div>
+		<br>
+        <p>*Presentarse 30 minutos antes del viaje</p>
+        <span style="margin-top: -20px;">---------------------------------------------------------------------</span><br>
+        <span><b>DATOS DEL CLIENTE</b></span>
+        <div class="text-center">
+        <table style="width: 300px;" class="tablas">   
+            <tr>
+            <th class="columna"><span><b>Nombre:</b></span></th>
+            <th class="columna2"><span th:text="${objPago.cliente.nombre}"></span></th>
+            </tr>
+            <tr>
+                <th class="columna"><span><b>Tipo documento:</b></span></th>
+                <th class="columna2"><span th:text="${objPago.cliente.objTipoDocumento.descripcion}"></span></th>
+            </tr>
+            <tr>
+                <th class="columna"><span><b>Numero:</b></span></th>
+                <th class="columna2"><span th:text="${objPago.cliente.numeroDocumento}"></span></th>
+            </tr>      
+        </table>
+        </div>
+        <span>---------------------------------------------------------------------</span><br>
+        <span><b>DATOS DEL PAGO</b></span><br>
+        
+        <div class="text-center">
+			<table style="width: 300px;" class="tablas">   
+            <tr>
+            <th class="columna"><span><b>Total:</b></span></th>
+            <th class="columna2"><span th:text="${objPago.venta.precioTotal}"></span></th>
+            </tr>    
+        </table>
+		</div>
+		   
+        <span>---------------------------------------------------------------------</span><br>
+        <span>Gracias por comprar en ViajaPeru</span>
+    </div>
+
+</body>
+
+</html>
+
+</html>
