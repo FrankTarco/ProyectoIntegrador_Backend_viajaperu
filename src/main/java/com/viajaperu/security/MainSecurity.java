@@ -55,9 +55,9 @@ public class MainSecurity   {
         .exceptionHandling(exp -> exp.authenticationEntryPoint(jwtEntryPoint))
         .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
         .authorizeHttpRequests(auth -> auth
-        .requestMatchers("/url/auth/**").permitAll()
-        .requestMatchers("/rest/**").permitAll()
-        .requestMatchers("/v3/api-docs/**").permitAll()
+        //.requestMatchers("/url/auth/**").permitAll()
+        //.requestMatchers("/rest/**").permitAll()
+        //.requestMatchers("/v3/api-docs/**").permitAll()
         .anyRequest()
         .authenticated());
         
